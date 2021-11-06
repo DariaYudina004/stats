@@ -2,26 +2,25 @@ package stats
 
 import (
 	"fmt"
-
-	"github.com/DariaYudina004/bank/pkg/types"
+	"github.com/DariaYudina004/bank/v2/pkg/types"
 )
 
 func ExampleAvg() {
 	payments := []types.Payment{
 		{
-			// Status : "FAIL",
+			Status: types.StatusFail,
 			Amount: 1000_00,
 		},
 		{
-			// Status : "FAIL",
+			Status: types.StatusFail,
 			Amount: 2000_00,
 		},
 		{
-			// Status : "INPROGRESS",
+			Status: types.StatusInProgress,
 			Amount: 2000_00,
 		},
 		{
-			// Status : "OK",
+			Status: types.StatusOk,
 			Amount: 4000_00,
 		},
 	}
@@ -34,27 +33,27 @@ func ExampleAvg() {
 func ExampleTotalInCategory() {
 	payments := []types.Payment{
 		{
-			// Status : "FAIL",
+			Status:   types.StatusFail,
 			Amount:   1000_00,
 			Category: "auto",
 		},
 		{
-			// Status : "INPROGRESS",
+			Status:   types.StatusInProgress,
 			Amount:   2000_00,
 			Category: "auto",
 		},
 		{
-			// Status : "OK",
+			Status:   types.StatusOk,
 			Amount:   2000_00,
 			Category: "auto",
 		},
 		{
-			// Status : "OK",
+			Status:   types.StatusOk,
 			Amount:   1000_00,
 			Category: "store",
 		},
 	}
-	fmt.Println(TotalInCategory(payments,types.Category("auto")))
+	fmt.Println(TotalInCategory(payments, types.Category("auto")))
 	//Output:
 	//400000
 
