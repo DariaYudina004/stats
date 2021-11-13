@@ -64,3 +64,20 @@ func CategoriesTotal(payments []types.Payment) map[types.Category]types.Money {
 	return categories
 
 }
+
+//func CategoriesAvg считает среднюю сумму платежа по каждой категории
+func CategoriesAvg(payments []types.Payment) map[types.Category]types.Money {
+	number := map[types.Category]types.Money{}
+	categories := map[types.Category]types.Money{}
+	for _, payment := range payments {
+
+		categories[payment.Category] += payment.Amount
+		number[payment.Category]++ //len(payments) //считаются только только те,чей статус не Statusfail -->number ++ замена len(payments)
+	}
+
+	for key := range categories {
+		categories[key] /= number[key]
+	}
+
+	return categories
+}

@@ -1,11 +1,10 @@
 package stats
 
 import (
+	"github.com/DariaYudina004/bank/v2/pkg/types"
 	"reflect"
 	"testing"
-	"github.com/DariaYudina004/bank/v2/pkg/types"
 )
-
 
 func TestFilterByCategory_nil(t *testing.T) {
 	var payments []types.Payment
@@ -78,7 +77,6 @@ func TestFilterByCategory_foundMultiple(t *testing.T) {
 	}
 }
 
-
 func TestCategoriesTotal(t *testing.T) {
 	payments := []types.Payment{
 		{ID: 1, Category: "auto", Amount: 10},
@@ -93,6 +91,30 @@ func TestCategoriesTotal(t *testing.T) {
 		"fun":  50,
 	}
 	result := CategoriesTotal(payments)
+
+	if !reflect.DeepEqual(expected, result) {
+		t.Errorf("invalid result , expected: %v, actual :%v", expected, result)
+	}
+
+}
+
+func TestCategoriesAvg(t *testing.T) {
+
+	payments := []types.Payment{
+		{ID: 1, Category: "auto", Amount: 10},
+		{ID: 2, Category: "food", Amount: 20},
+		{ID: 3, Category: "auto", Amount: 30},
+		{ID: 4, Category: "auto", Amount: 50},
+		{ID: 5, Category: "fun", Amount: 50},
+		{ID: 5, Category: "fun", Amount: 50},
+		{ID: 2, Category: "food", Amount: 40},
+	}
+	expected := map[types.Category]types.Money{
+		"auto": 30,
+		"food": 30,
+		"fun":  50,
+	}
+	result := CategoriesAvg(payments)
 
 	if !reflect.DeepEqual(expected, result) {
 		t.Errorf("invalid result , expected: %v, actual :%v", expected, result)
